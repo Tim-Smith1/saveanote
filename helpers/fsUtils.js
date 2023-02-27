@@ -30,5 +30,28 @@ const readAndAppend = (content, file) => {
     }
   });
 };
+/**
+ *  Function to read data from a given a file and delete some content
+ *  @param {string} file The path to the file you want to delete from
+ *  @param {string} id The id of the Object you want to remove from the file
+ *  @returns {boolean} Returns true or false if an item has been found and removed
+ */
+const readAndDelete = (file, id) => {
+  fs.readFile(file, 'utf8', (err, data) => {
+    if (err) {
+      console.error(err);
+    } else {
+      const parsedData = JSON.parse(data);
+      for(var i = 0; i < parsedData.length; i++){
+          if(parsedData[i].id === id){
+              parsedData.splice(i, 1);
+              writeToFile(file, parsedData);
+              return false
+          }
+      }
+      return false;
+  }
+  });
+};
 
-module.exports = { readFromFile, writeToFile, readAndAppend };
+module.exports = { readFromFile, writeToFile, readAndAppend, readAndDelete };

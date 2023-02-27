@@ -80,7 +80,8 @@ typings/
 
 # Nuxt.js build / generate output
 .nuxt
-dist
+#dist 
+###########removed from  gitignore per SVG assignment
 
 # Gatsby files
 .cache/
