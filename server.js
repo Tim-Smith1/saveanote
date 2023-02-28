@@ -37,18 +37,35 @@ app.get('/', (req, res) => {
 
   
 app.post('/api/notes', (req, res) => {
-    const notes = JSON.parse(fs.readFileSync('./db/db.json', null, 2));
+    const notesAsJson = fs.readFileSync('./db/db.json');
+    const notes = JSON.parse(notesAsJson);
     const newNote = req.body;
     newNote.id = uuidv4();
     notes.push(newNote);
+    console.log(req.params.id);////
     fs.writeFileSync('./db/db.json', JSON.stringify(notes));
     res.json(notes); 
+    
 });
 
-// app.post('/api/notes', (req, res) => {
-//     console.log("hello");
-//     const AddNote = NewNote(req.body, fileNotes);
-//     res.json(AddNote)
+// app.delete(`/api/notes/:id`, (req, res) => {
+//  const notes = JSON.parse(fs.readFileSync('./db/db.json')); 
+//  const idToDelete = req.params.id;    
+//  const notesWithoutDeletedNote = notes.filter(function (notes) {
+//   // if the note does not match the delete note
+//   // -- let that note thru
+//     if (notes.id !== idToDelete) {
+//       return notes;
+//     } else {
+//       return 
+//     }
+
+    
+//  })
+// //writeFileSync
+// fs.writeToFile('./db/db.json', JSON.stringify(notes));
+// res.json(notesWithoutDeletedNote)
+     
 // });
 
 app.listen(PORT, () =>
